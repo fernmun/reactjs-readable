@@ -1,17 +1,14 @@
-const api = process.env.REACT_APP_CONTACTS_API_URL || 'http://localhost:5001'
+const api = process.env.REACT_APP_CONTACTS_API_URL || 'http://localhost:3001'
 
-const handleErrors = (response) => {
-  if (reponse.error) {
-    throw Error(response.error)
+const handleErrors = (res) => {
+  if (res.error) {
+    throw Error(res.error)
   }
 
-  return response
+  return res
 }
 
-let token = localStorage.token
-
-if (!token)
-  token = localStorage.token = Math.random().toString(36).substr(-8)
+const token = 'readable-api'
 
 const headers = {
   'Accept': 'application/json',
@@ -20,13 +17,13 @@ const headers = {
 
 // Categories
 export const getAllCategories = () =>
-  fetch(`${api}/categories`)
+  fetch(`${api}/categories`, { headers })
     .then(handleErrors)
     .then(res => res.json())
 
 // Posts
-export const getAllPosts = ($category) => {
-  const url = $category : `${api}/${category}` ? api
+export const getAllPosts = (category) => {
+  const url = category ? `${api}/${category}` : api
 
   fetch(`${url}/posts`, { headers })
     .then(handleErrors)
@@ -43,10 +40,10 @@ export const addPost = (post) =>
     body: JSON.stringify(post)
   })
     .then(handleErrors)
-    .then(res => res.json()
+    .then(res => res.json())
 
 export const getPost = (id) =>
-  fetch(`${api}/posts/${id}`)
+  fetch(`${api}/posts/${id}`, { headers })
     .then(handleErrors)
     .then(res => res.json())
 
@@ -60,7 +57,7 @@ export const editPost = (id, post) =>
     body: JSON.stringify(post)
   })
     .then(handleErrors)
-    .then(res => res.json()
+    .then(res => res.json())
 
 export const deletePost = id =>
   fetch(`${api}/posts/${id}`, { method: 'DELETE', headers })
@@ -69,7 +66,7 @@ export const deletePost = id =>
 
 // Comments
 export const getAllComments = (postId) =>
-  fetch(`${api}/posts/${postId}/comments`)
+  fetch(`${api}/posts/${postId}/comments`, { headers })
     .then(handleErrors)
     .then(res => res.json())
 
@@ -83,10 +80,10 @@ export const addComment = (comment) =>
     body: JSON.stringify(comment)
   })
     .then(handleErrors)
-    .then(res => res.json()
+    .then(res => res.json())
 
 export const getComment = (id) =>
-  fetch(`${api}/comments/${id}`)
+  fetch(`${api}/comments/${id}`, { headers })
     .then(handleErrors)
     .then(res => res.json())
 
@@ -113,7 +110,7 @@ export const votePost = (id, vote) =>
     body: JSON.stringify(vote)
   })
     .then(handleErrors)
-    .then(res => res.json()
+    .then(res => res.json())
 
 export const voteComment = (id, vote) =>
   fetch(`${api}/comments/${id}`, {
@@ -125,4 +122,4 @@ export const voteComment = (id, vote) =>
     body: JSON.stringify(vote)
   })
     .then(handleErrors)
-    .then(res => res.json()
+    .then(res => res.json())
