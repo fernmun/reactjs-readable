@@ -2,21 +2,19 @@ import {
   ADD_POST
 } from '../const/actions'
 
-const initialState = {
-  posts: null
-}
-
-function posts (state = initialState, action) {
+function posts (state = {}, action) {
   switch (action.type) {
     case ADD_POST:
       return {
         ...state,
-        posts: {
-          ...state[posts],
-          action.response
+        [action.payload.id]: {
+          ...action.payload,
+          comments: []
         }
       }
     default:
       return state
   }
 }
+
+export default posts
