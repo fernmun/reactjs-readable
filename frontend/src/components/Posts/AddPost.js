@@ -18,15 +18,23 @@ class AddPost extends Component {
 }
 
 function mapStateToProps (state) {
+  // Add no-valid default category
+  const categories = [
+    {
+      name: 'Select a category'
+    },
+    ...state.categories
+  ]
+
   return {
-    categories: state.categories
+    categories: categories
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
     getCategories: () => dispatch(getAllCategories()),
-    addPost: (data) => {dispatch(addPost({...data, category: 'redux'}))}
+    addPost: (data) => {dispatch(addPost(data))}
   }
 }
 
