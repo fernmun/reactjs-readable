@@ -5,7 +5,7 @@ import ListPosts from './ListPosts'
 
 class AllPosts extends Component {
   componentDidMount() {
-    this.props.getAllPosts()
+    this.props.getAllPosts(this.props.match.params.category)
   }
 
   render() {
@@ -23,7 +23,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    getAllPosts: () => dispatch(getAllPosts()),
+    getAllPosts: (category) => dispatch(getAllPosts(category)),
   }
 }
 

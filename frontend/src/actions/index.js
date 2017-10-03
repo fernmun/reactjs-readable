@@ -28,8 +28,8 @@ export function getAllCategories() {
   }
 }
 
-export function getAllPosts() {
-  const res = API.getAllPosts()
+export function getAllPosts(category=null) {
+  const res = API.getAllPosts(category)
 
   return {
     type: GET_ALL_POSTS,

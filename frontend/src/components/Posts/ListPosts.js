@@ -4,7 +4,6 @@ const ListPosts = ({ posts }) => {
   const keys = Object.keys(posts)
 
   const renderPost = (post) => {
-    console.log(post)
     return (
       <div key={post.id} className="post">
         <h1>{post.title}</h1>
@@ -13,6 +12,11 @@ const ListPosts = ({ posts }) => {
       </div>
     )
   }
+
+  if (keys.length === 0)
+    return (
+      `There are no posts to be shown! :(`
+    )
 
   return (
     <div>
