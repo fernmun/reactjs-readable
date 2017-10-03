@@ -1,8 +1,9 @@
 import {
-  ADD_POST
+  ADD_POST,
+  GET_ALL_POSTS
 } from '../const/actions'
 
-function posts (state = {}, action) {
+function posts (state = [], action) {
   switch (action.type) {
     case ADD_POST:
       return {
@@ -12,6 +13,8 @@ function posts (state = {}, action) {
           comments: []
         }
       }
+    case GET_ALL_POSTS:
+      return action.payload
     default:
       return state
   }

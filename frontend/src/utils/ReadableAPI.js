@@ -22,10 +22,10 @@ export const getAllCategories = () =>
     .then(res => res.json())
 
 // Posts
-export const getAllPosts = (category) => {
+export const getAllPosts = (category=null) => {
   const url = category ? `${api}/${category}` : api
 
-  fetch(`${url}/posts`, { headers })
+  return fetch(`${url}/posts`, { headers })
     .then(handleErrors)
     .then(res => res.json())
 }
