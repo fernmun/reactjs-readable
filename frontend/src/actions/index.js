@@ -2,6 +2,7 @@ import * as API from '../utils/ReadableAPI'
 import {
   ADD_POST,
   GET_ALL_POSTS,
+  GET_POST,
   GET_ALL_CATEGORIES
 } from '../const/actions'
 import uuid from 'uuid/v4'
@@ -33,6 +34,15 @@ export function getAllPosts(category=null) {
 
   return {
     type: GET_ALL_POSTS,
+    payload: res
+  }
+}
+
+export function getPost(id) {
+  const res = API.getPost(id)
+
+  return {
+    type: GET_POST,
     payload: res
   }
 }

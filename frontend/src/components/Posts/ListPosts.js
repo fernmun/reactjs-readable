@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const ListPosts = ({ posts }) => {
   const keys = Object.keys(posts)
@@ -6,9 +7,10 @@ const ListPosts = ({ posts }) => {
   const renderPost = (post) => {
     return (
       <div key={post.id} className="post">
-        <h1>{post.title}</h1>
-        <h6>Category: {post.category}</h6>
+        <h1><Link className="title" to={`/${post.category}/${post.id}`}>{post.title}</Link></h1>
+        <h6><Link to={`/${post.category}`}>{post.category}</Link></h6>
         <p>{post.body}</p>
+        <span>{post.id}</span>
       </div>
     )
   }

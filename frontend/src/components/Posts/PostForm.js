@@ -9,7 +9,7 @@ import {
 } from 'react-bootstrap'
 import { Field, reduxForm } from 'redux-form'
 
-class AddPostForm extends Component {
+class PostForm extends Component {
 
   state = {
     value: ''
@@ -77,6 +77,6 @@ class AddPostForm extends Component {
 }
 
 export default withRouter(reduxForm({
-    form: 'AddPostForm',
+    form: 'PostForm',
     enableReinitialize: true,
-})(AddPostForm))
+})(PostForm))

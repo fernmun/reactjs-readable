@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import AddPostForm from './AddPostForm'
+import PostForm from './PostForm'
 import { getAllCategories, addPost } from '../../actions'
 
 class AddPost extends Component {
@@ -10,7 +10,7 @@ class AddPost extends Component {
 
   render() {
     return(
-      <AddPostForm
+      <PostForm
         action={this.props.addPost}
         categories={this.props.categories} />
     )
