@@ -60,7 +60,13 @@ class PostForm extends Component {
   }
 
   onSubmit = values => {
-    this.props.action(values)
+    if (!this.props.edit) {
+      this.props.action(values)
+    }
+    else {
+      this.props.action(this.props.initialValues.id, values)
+    }
+    this.props.history.push('/')
   }
 
   render() {

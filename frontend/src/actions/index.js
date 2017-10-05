@@ -1,6 +1,7 @@
 import * as API from '../utils/ReadableAPI'
 import {
   ADD_POST,
+  EDIT_POST,
   GET_ALL_POSTS,
   GET_POST,
   GET_ALL_CATEGORIES
@@ -16,6 +17,18 @@ export function addPost(post) {
 
   return {
     type: ADD_POST,
+    payload: res
+  }
+}
+
+export function editPost(id, post) {
+  const res = API.editPost(id, {
+    ...post,
+    timestamp: Date.now()
+  })
+
+  return {
+    type: EDIT_POST,
     payload: res
   }
 }

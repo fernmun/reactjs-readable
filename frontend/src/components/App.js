@@ -11,7 +11,7 @@ class App extends Component {
       <Switch>
         <Route exact path='/' component={AllPosts} />
         <Route exact path='/create/post' component={AddPost} />
-        <Route exact key='postId' path='/:category/:postId/edit' component={Post} />
+        <Route exact key='postId' path='/:category/:postId/edit' component={EditPost} />
         <Route exact key='category' path='/:category' component={AllPosts} />
         <Route exact key='postId' path='/:category/:postId' component={Post} />
         <Route exact key='postId' path='/:category/:postId' component={Post} />

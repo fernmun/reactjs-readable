@@ -8,6 +8,7 @@ const ListPosts = ({ posts }) => {
     return (
       <div key={post.id} className="post">
         <h1><Link className="title" to={`/${post.category}/${post.id}`}>{post.title}</Link></h1>
+        <h6><Link to={`/${post.category}/${post.id}/edit`}>Edit</Link></h6>
         <h6><Link to={`/${post.category}`}>{post.category}</Link></h6>
         <p>{post.body}</p>
         <span>{post.id}</span>

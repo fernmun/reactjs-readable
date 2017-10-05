@@ -14,6 +14,7 @@ class Post extends Component {
       <div key={post.id} className="post">
         <h1>{post.title}</h1>
         <h6><Link to={`/${post.category}`}>{post.category}</Link></h6>
+        <h6><Link to={`/${post.category}/${post.id}/edit`}>Edit</Link></h6>
         <p>{post.body}</p>
         <span>{post.id}</span>
       </div>
