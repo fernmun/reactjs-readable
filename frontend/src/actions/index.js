@@ -4,6 +4,7 @@ import {
   EDIT_POST,
   GET_ALL_POSTS,
   GET_POST,
+  VOTE_POST,
   GET_ALL_CATEGORIES
 } from '../const/actions'
 import uuid from 'uuid/v4'
@@ -56,6 +57,15 @@ export function getPost(id) {
 
   return {
     type: GET_POST,
+    payload: res
+  }
+}
+
+export function votePost(id, vote) {
+  const res = API.votePost(id, vote)
+
+  return {
+    type: VOTE_POST,
     payload: res
   }
 }

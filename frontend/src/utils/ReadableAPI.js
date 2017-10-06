@@ -107,7 +107,7 @@ export const votePost = (id, vote) =>
       ...headers,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(vote)
+    body: JSON.stringify({ option: vote })
   })
     .then(handleErrors)
     .then(res => res.json())
@@ -119,7 +119,7 @@ export const voteComment = (id, vote) =>
       ...headers,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(vote)
+    body: JSON.stringify({ option: vote })
   })
     .then(handleErrors)
     .then(res => res.json())
