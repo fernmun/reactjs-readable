@@ -5,7 +5,8 @@ import {
   GET_ALL_POSTS,
   GET_POST,
   VOTE_POST,
-  GET_ALL_CATEGORIES
+  GET_ALL_CATEGORIES,
+  SORT_POSTS
 } from '../const/actions'
 import uuid from 'uuid/v4'
 
@@ -67,5 +68,12 @@ export function votePost(id, vote) {
   return {
     type: VOTE_POST,
     payload: res
+  }
+}
+
+export function sortPosts(type) {
+  return {
+    type: SORT_POSTS,
+    payload: type
   }
 }

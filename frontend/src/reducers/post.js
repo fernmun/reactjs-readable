@@ -1,4 +1,5 @@
 import {
+  ADD_POST,
   GET_POST,
   VOTE_POST,
   EDIT_POST
@@ -6,6 +7,8 @@ import {
 
 function post (state = [], action) {
   switch (action.type) {
+    case ADD_POST:
+      return action.payload
     case EDIT_POST:
       return action.payload
     case VOTE_POST:

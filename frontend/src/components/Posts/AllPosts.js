@@ -2,7 +2,14 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Vote from '../Vote/Vote'
-import { getAllPosts, votePost } from '../../actions'
+import { getAllPosts, votePost, sortPosts , orderType} from '../../actions'
+import {
+  FormGroup,
+  ControlLabel,
+  FormControl
+} from 'react-bootstrap'
+import { BY_DATE, BY_SCORE } from '../../const/orderTypes'
+import { sortList } from '../../utils'
 
 class AllPosts extends Component {
   componentDidMount() {
@@ -21,16 +28,30 @@ class AllPosts extends Component {
       </div>
     )
   }
-
   render() {
-    if (this.props.posts.length === 0)
+    const posts = sortList(this.props.orderType, this.props.posts)
+
+    if (posts.length === 0)
       return (
         `There are no posts to be shown! :(`
       )
 
     return(
       <div>
-        {this.props.posts.map(post => this.renderPost(post))}
+        <FormGroup>
+          <ControlLabel>Sort By</ControlLabel>
+          <FormControl componentClass="select" onChange={(e) => {
+              this.props.sortPosts(e.target.value, this.props.posts)
+            }}>
+            <option value={BY_DATE}>
+              Newest
+            </option>
+            <option value={BY_SCORE}>
+              Best
+            </option>
+          </FormControl>
+        </FormGroup>
+        {posts.map(post => this.renderPost(post))}
       </div>
     )
   }
@@ -38,14 +59,16 @@ class AllPosts extends Component {
 
 function mapStateToProps (state) {
   return {
-    posts: state.posts
+    posts: state.posts,
+    orderType: state.orderType
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
     getAllPosts: (category) => dispatch(getAllPosts(category)),
-    votePost: (id, vote) => dispatch(votePost(id, vote))
+    votePost: (id, vote) => dispatch(votePost(id, vote)),
+    sortPosts: (type, posts) => dispatch(sortPosts(type, posts))
   }
 }
 
