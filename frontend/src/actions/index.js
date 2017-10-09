@@ -6,7 +6,8 @@ import {
   GET_POST,
   VOTE_POST,
   GET_ALL_CATEGORIES,
-  SORT_POSTS
+  SORT_POSTS,
+  GET_ALL_COMMENTS
 } from '../const/actions'
 import uuid from 'uuid/v4'
 
@@ -75,5 +76,14 @@ export function sortPosts(type) {
   return {
     type: SORT_POSTS,
     payload: type
+  }
+}
+
+export function getAllComments(id) {
+  const res = API.getAllComments(id)
+
+  return {
+    type: GET_ALL_COMMENTS,
+    payload: res
   }
 }

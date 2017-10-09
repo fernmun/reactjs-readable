@@ -1,16 +1,19 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { getPost, votePost } from '../../actions'
+import AllComments from '../Comments/AllComments'
+import { getPost, getAllComments, votePost } from '../../actions'
 import Vote from '../Vote/Vote'
 
 class Post extends Component {
   componentDidMount() {
     this.props.getPost(this.props.match.params.postId)
+    this.props.getAllComments(this.props.match.params.postId)
   }
 
   render() {
-    const { post } = this.props
+    const { post, comments } = this.props
+    
     return (
       <div key={post.id} className="post">
         <Vote handleVote={this.props.votePost} id={post.id} score={post.voteScore} />
@@ -19,6 +22,10 @@ class Post extends Component {
         <h6><Link to={`/${post.category}/${post.id}/edit`}>Edit</Link></h6>
         <p>{post.body}</p>
         <span>{post.id}</span>
+        <div>
+          <h3>Comments</h3>
+          <AllComments comments={comments} />
+        </div>
       </div>
     )
   }
@@ -26,13 +33,15 @@ class Post extends Component {
 
 function mapStateToProps (state) {
   return {
-    post: state.post
+    post: state.post,
+    comments: state.comments
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
     getPost: (id) => dispatch(getPost(id)),
+    getAllComments: (id) => dispatch(getAllComments(id)),
     votePost: (id, vote) => dispatch(votePost(id, vote))
   }
 }
