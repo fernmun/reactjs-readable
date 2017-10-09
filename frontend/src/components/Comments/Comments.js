@@ -2,11 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Vote from '../Vote/Vote'
-import { getAllComments, voteComment } from '../../actions'
+import CommentForm from './CommentForm'
+import { addComment, getAllComments, voteComment } from '../../actions'
 import { sortList } from '../../utils'
 import { BY_SCORE } from '../../const/orderTypes'
 
-class AllComments extends Component {
+class Comments extends Component {
   componentDidMount() {
     this.props.getAllComments(this.props.postId)
   }
@@ -26,7 +27,14 @@ class AllComments extends Component {
 
     return(
       <div>
-        {comments.map((comment) => this.renderComment(comment))}
+        <div>
+          <h4>Add Comment</h4>
+          <CommentForm action={this.props.addComment} postId={this.props.postId} />
+        </div>
+        <div>
+        <h3>Comments</h3>
+          {comments.map((comment) => this.renderComment(comment))}
+        </div>
       </div>
     )
   }
@@ -40,6 +48,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
+    addComment: (comment) => dispatch(addComment(comment)),
     getAllComments: (id) => dispatch(getAllComments(id)),
     voteComment: (id, vote) => dispatch(voteComment(id, vote))
   }
@@ -48,4 +57,4 @@ function mapDispatchToProps (dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(AllComments)
+)(Comments)

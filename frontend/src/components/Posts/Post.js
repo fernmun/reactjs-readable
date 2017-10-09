@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import AllComments from '../Comments/AllComments'
+import Comments from '../Comments/Comments'
 import { getPost, votePost } from '../../actions'
 import Vote from '../Vote/Vote'
 
@@ -22,8 +22,7 @@ class Post extends Component {
         <p>{post.body}</p>
         <span>{post.id}</span>
         <div>
-          <h3>Comments</h3>
-          <AllComments postId={post.id} />
+          <Comments postId={post.id} />
         </div>
       </div>
     )

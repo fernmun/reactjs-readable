@@ -8,6 +8,7 @@ import {
   GET_ALL_CATEGORIES,
   SORT_POSTS,
   GET_ALL_COMMENTS,
+  ADD_COMMENT,
   VOTE_COMMENT
 } from '../const/actions'
 import uuid from 'uuid/v4'
@@ -85,6 +86,18 @@ export function getAllComments(id) {
 
   return {
     type: GET_ALL_COMMENTS,
+    payload: res
+  }
+}
+
+export function addComment(comment) {
+  const res = API.addComment({
+    id: uuid(),
+    ...comment
+  })
+
+  return {
+    type: ADD_COMMENT,
     payload: res
   }
 }
