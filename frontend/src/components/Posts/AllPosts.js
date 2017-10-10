@@ -2,7 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Vote from '../Vote/Vote'
-import { getAllPosts, votePost, sortPosts , orderType} from '../../actions'
+import {
+  getAllPosts,
+  deletePost,
+  votePost,
+  sortPosts,
+  orderType
+} from '../../actions'
 import {
   FormGroup,
   ControlLabel,
@@ -21,7 +27,8 @@ class AllPosts extends Component {
       <div key={post.id} className="post">
         <Vote handleVote={this.props.votePost} id={post.id} score={post.voteScore} />
         <h1><Link className="title" to={`/${post.category}/${post.id}`}>{post.title}</Link></h1>
-        <h6><Link to={`/${post.category}/${post.id}/edit`}>Edit</Link></h6>
+        <h6><Link to={`/${post.category}/${post.id}/edit`}> Edit </Link></h6>
+        <h6><a href="javascript:void(0)" onClick={() => this.props.deletePost(post.id)}> Delete </a></h6>
         <h6><Link to={`/${post.category}`}>{post.category}</Link></h6>
         <p>{post.body}</p>
         <span>{post.id}</span>
@@ -67,6 +74,7 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
   return {
     getAllPosts: (category) => dispatch(getAllPosts(category)),
+    deletePost: (id) => dispatch(deletePost(id)),
     votePost: (id, vote) => dispatch(votePost(id, vote)),
     sortPosts: (type, posts) => dispatch(sortPosts(type, posts))
   }

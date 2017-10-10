@@ -4,6 +4,7 @@ import {
   EDIT_POST,
   GET_ALL_POSTS,
   GET_POST,
+  DELETE_POST,
   VOTE_POST,
   GET_ALL_CATEGORIES,
   SORT_POSTS,
@@ -64,6 +65,15 @@ export function getPost(id) {
 
   return {
     type: GET_POST,
+    payload: res
+  }
+}
+
+export function deletePost(id) {
+  const res = API.deletePost(id)
+
+  return {
+    type: DELETE_POST,
     payload: res
   }
 }

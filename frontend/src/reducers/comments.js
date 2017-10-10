@@ -43,25 +43,22 @@ function comments (state = initialState, action) {
 
     case EDIT_COMMENT:
       comments[findKey(state, action.payload.id)] = action.payload
-
       return {
-        comments: comments,
+        comments,
         editableComment: null
       }
 
     case DELETE_COMMENT:
-      comments.splice(findKey(state, action.payload.id))
-
+      delete comments[findKey(state, action.payload.id)]
       return {
-        comments: comments,
+        comments,
         editableComment: null
       }
 
     case VOTE_COMMENT:
       comments[findKey(state, action.payload.id)] = action.payload
-
       return {
-        comments: comments,
+        comments,
         editableComment: null
       }
 
