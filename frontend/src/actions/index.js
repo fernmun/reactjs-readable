@@ -52,7 +52,14 @@ export function getAllCategories() {
 }
 
 export function getAllPosts(category=null) {
-  const res = API.getAllPosts(category)
+  const res = API.getAllPosts(category).then(posts => {
+    return Promise.all(posts.map(post => API.getAllComments(post.id)))
+      .then(comments => {
+        return comments.map((comment, index) => {
+          return { ...posts[index], comments: comment.length }
+        })
+      })
+    })
 
   return {
     type: GET_ALL_POSTS,
