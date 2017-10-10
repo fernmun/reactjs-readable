@@ -3,7 +3,13 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import Vote from '../Vote/Vote'
 import CommentForm from './CommentForm'
-import { addComment, getAllComments, voteComment } from '../../actions'
+import {
+  addComment,
+  editComment,
+  getAllComments,
+  setEditableComment,
+  voteComment
+} from '../../actions'
 import { sortList } from '../../utils'
 import { BY_SCORE } from '../../const/orderTypes'
 
@@ -18,12 +24,14 @@ class Comments extends Component {
         <Vote id={comment.id} score={comment.voteScore} handleVote={this.props.voteComment} />
         <h4>{comment.author}</h4>
         <p>{comment.body}</p>
+        <a href="javascript:void(0)" onClick={() => this.props.setEditableComment(comment.id)}>Edit</a>
       </div>
     )
   }
 
   render() {
     const comments = sortList(BY_SCORE, this.props.comments)
+    const editableComment = this.props.editableComment
 
     return(
       <div>
@@ -33,7 +41,24 @@ class Comments extends Component {
         </div>
         <div>
         <h3>Comments</h3>
-          {comments.map((comment) => this.renderComment(comment))}
+          {comments.map((comment) => {
+              if (editableComment === comment.id) {
+                return (
+                  <div>
+                    <h4>{comment.author}</h4>
+                    <CommentForm
+                    edit={true}
+                    action={this.props.editComment}
+                    key={comment.id}
+                    form={comment.id}
+                    initialValues={comment}
+                    />
+                  </div>
+                )
+              }
+              return this.renderComment(comment)
+            })
+          }
         </div>
       </div>
     )
@@ -42,14 +67,17 @@ class Comments extends Component {
 
 function mapStateToProps (state) {
   return {
-    comments: state.comments
+    comments: state.comments.comments,
+    editableComment: state.comments.editableComment
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
     addComment: (comment) => dispatch(addComment(comment)),
+    editComment: (id, comment) => dispatch(editComment(id, comment)),
     getAllComments: (id) => dispatch(getAllComments(id)),
+    setEditableComment: (id) => dispatch(setEditableComment(id)),
     voteComment: (id, vote) => dispatch(voteComment(id, vote))
   }
 }

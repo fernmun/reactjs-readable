@@ -1,28 +1,60 @@
 import {
   GET_ALL_COMMENTS,
   ADD_COMMENT,
+  EDIT_COMMENT,
+  SET_EDITABLE_COMMENT,
   VOTE_COMMENT
 } from '../const/actions'
 
-function comments (state = [], action) {
-  const { payload } = action
+const initialState = {
+  comments: [],
+  editableComment: null
+}
+
+function findKey(state, id) {
+  return state.comments.findIndex(comment => id === comment.id)
+}
+
+function comments (state = initialState, action) {
+  const comments = Object.values(state.comments)
 
   switch (action.type) {
     case GET_ALL_COMMENTS:
-      return payload
+      return {
+        ...state,
+        comments: action.payload
+      }
 
     case ADD_COMMENT:
-      return [
+      return {
         ...state,
-        action.payload
-      ]
+        comments: [
+          ...state.comments,
+          action.payload
+        ]
+      }
+
+    case SET_EDITABLE_COMMENT:
+      return {
+        ...state,
+        editableComment: action.payload
+      }
+
+    case EDIT_COMMENT:
+      comments[findKey(state, action.payload.id)] = action.payload
+
+      return {
+        comments: comments,
+        editableComment: null
+      }
 
     case VOTE_COMMENT:
-      const key = state.findIndex(comment => action.payload.id === comment.id)
-      let comments = Object.values(state)
-      comments[key] = action.payload
+      comments[findKey(state, action.payload.id)] = action.payload
 
-      return comments
+      return {
+        comments: comments,
+        editableComment: null
+      }
 
     default:
       return state

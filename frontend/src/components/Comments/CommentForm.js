@@ -39,16 +39,26 @@ class CommentForm extends Component {
 
   onSubmit = values => {
     values = {...values, parentId: this.props.postId}
-    this.props.action(values)
+    if (!this.props.edit) {
+      this.props.action(values)
+    }
+    else {
+      this.props.action(this.props.initialValues.id, values)
+    }
     this.props.reset()
   }
 
   render() {
+    let author = ''
+    if(!this.props.edit) {
+      author = <Field label="Author" name="author" component={this.buildInputField} onChange={this.handleChange} />
+    }
+
     return(
       <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
-        <Field label="Author" name="author" component={this.buildInputField} onChange={this.handleChange} />
+        {author}
         <Field label="Comment" name="body" component={this.buildInputField} onChange={this.handleChange} />
-        <Button bsStyle="primary" type="submit" active>Add Comment</Button>
+        <Button bsStyle="primary" type="submit" active>{(this.props.edit) ? `Edit Comment` : `Add Comment` }</Button>
       </form>
     )
   }

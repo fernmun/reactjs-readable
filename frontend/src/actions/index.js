@@ -9,6 +9,8 @@ import {
   SORT_POSTS,
   GET_ALL_COMMENTS,
   ADD_COMMENT,
+  EDIT_COMMENT,
+  SET_EDITABLE_COMMENT,
   VOTE_COMMENT
 } from '../const/actions'
 import uuid from 'uuid/v4'
@@ -99,6 +101,25 @@ export function addComment(comment) {
   return {
     type: ADD_COMMENT,
     payload: res
+  }
+}
+
+export function editComment(id, comment) {
+  const res = API.editComment(id, {
+    ...comment,
+    timestamp: Date.now()
+  })
+
+  return {
+    type: EDIT_COMMENT,
+    payload: res
+  }
+}
+
+export function setEditableComment(id) {
+  return {
+    type: SET_EDITABLE_COMMENT,
+    payload: id
   }
 }
 
