@@ -11,6 +11,7 @@ import {
   ADD_COMMENT,
   EDIT_COMMENT,
   SET_EDITABLE_COMMENT,
+  DELETE_COMMENT,
   VOTE_COMMENT
 } from '../const/actions'
 import uuid from 'uuid/v4'
@@ -112,6 +113,15 @@ export function editComment(id, comment) {
 
   return {
     type: EDIT_COMMENT,
+    payload: res
+  }
+}
+
+export function deleteComment(id) {
+  const res = API.deleteComment(id)
+
+  return {
+    type: DELETE_COMMENT,
     payload: res
   }
 }

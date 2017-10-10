@@ -2,6 +2,7 @@ import {
   GET_ALL_COMMENTS,
   ADD_COMMENT,
   EDIT_COMMENT,
+  DELETE_COMMENT,
   SET_EDITABLE_COMMENT,
   VOTE_COMMENT
 } from '../const/actions'
@@ -42,6 +43,14 @@ function comments (state = initialState, action) {
 
     case EDIT_COMMENT:
       comments[findKey(state, action.payload.id)] = action.payload
+
+      return {
+        comments: comments,
+        editableComment: null
+      }
+
+    case DELETE_COMMENT:
+      comments.splice(findKey(state, action.payload.id))
 
       return {
         comments: comments,

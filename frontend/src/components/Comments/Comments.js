@@ -6,6 +6,7 @@ import CommentForm from './CommentForm'
 import {
   addComment,
   editComment,
+  deleteComment,
   getAllComments,
   setEditableComment,
   voteComment
@@ -24,7 +25,8 @@ class Comments extends Component {
         <Vote id={comment.id} score={comment.voteScore} handleVote={this.props.voteComment} />
         <h4>{comment.author}</h4>
         <p>{comment.body}</p>
-        <a href="javascript:void(0)" onClick={() => this.props.setEditableComment(comment.id)}>Edit</a>
+        <a href="javascript:void(0)" onClick={() => this.props.setEditableComment(comment.id)}> Edit </a>
+        <a href="javascript:void(0)" onClick={() => this.props.deleteComment(comment.id)}> Delete </a>
       </div>
     )
   }
@@ -76,6 +78,7 @@ function mapDispatchToProps (dispatch) {
   return {
     addComment: (comment) => dispatch(addComment(comment)),
     editComment: (id, comment) => dispatch(editComment(id, comment)),
+    deleteComment: (id) => dispatch(deleteComment(id)),
     getAllComments: (id) => dispatch(getAllComments(id)),
     setEditableComment: (id) => dispatch(setEditableComment(id)),
     voteComment: (id, vote) => dispatch(voteComment(id, vote))

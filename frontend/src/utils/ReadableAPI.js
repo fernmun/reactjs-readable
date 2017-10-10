@@ -99,6 +99,11 @@ export const editComment = (id, comment) =>
     .then(handleErrors)
     .then(res => res.json())
 
+export const deleteComment = id =>
+  fetch(`${api}/comments/${id}`, { method: 'DELETE', headers })
+    .then(handleErrors)
+    .then(res => res.json())
+
 // Voting
 export const votePost = (id, vote) =>
   fetch(`${api}/posts/${id}`, {
