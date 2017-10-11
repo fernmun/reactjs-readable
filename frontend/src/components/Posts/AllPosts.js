@@ -25,8 +25,11 @@ import { sortList } from '../../utils'
 
 class AllPosts extends Component {
   componentDidMount() {
-    this.props.getAllPosts(this.props.match.params.category)
     this.props.getCategories()
+  }
+
+  componentWillReceiveProps() {
+    this.props.getAllPosts(this.props.match.params.category)
   }
 
   renderPost(post) {
