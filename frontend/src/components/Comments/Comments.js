@@ -51,15 +51,20 @@ class Comments extends Component {
         <Row>
           <h4>Add Comment</h4>
           <Col xs={6}>
-            <CommentForm action={this.props.addComment} postId={this.props.postId} />
+            <CommentForm
+              action={this.props.addComment}
+              postId={this.props.postId}
+              key={this.props.postId}
+              form={this.props.postId}
+            />
           </Col>
         </Row>
         <div>
         <h3>Comments</h3>
-          {comments.map((comment) => {
+          {comments && comments.map((comment) => {
               if (editableComment === comment.id) {
                 return (
-                  <div>
+                  <div key={comment.id}>
                     <h4>{comment.author}</h4>
                     <CommentForm
                     edit={true}
@@ -68,7 +73,7 @@ class Comments extends Component {
                     form={comment.id}
                     initialValues={comment}
                     />
-                  <hr />
+                    <hr />
                   </div>
                 )
               }

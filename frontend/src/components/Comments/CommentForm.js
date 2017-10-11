@@ -5,8 +5,7 @@ import {
   Button,
   FormGroup,
   ControlLabel,
-  FormControl,
-  HelpBlock
+  FormControl
 } from 'react-bootstrap'
 import { Field, reduxForm } from 'redux-form'
 
@@ -32,7 +31,9 @@ class CommentForm extends Component {
         <ControlLabel>{field.label}</ControlLabel>
         <FormControl type="text" placeholder={field.label} {...field.input} />
         <FormControl.Feedback />
-        <HelpBlock>Min. 4 characters</HelpBlock>
+        <div className="error danger">
+          {field.meta.touched ? field.meta.error : ''}
+        </div>
       </FormGroup>
     )
   }
@@ -70,7 +71,26 @@ CommentForm.propTypes = {
   edit: PropTypes.bool
 }
 
+function validate(values) {
+  const errors = {}
+
+  if (!values.author) {
+    errors.author = 'It is required'
+  } else if (values.author.length < 5) {
+    errors.author = 'Min. 4 characters'
+  }
+
+  if (!values.body) {
+    errors.body = 'It is required'
+  } else if (values.body.length < 5) {
+    errors.body = 'Min. 4 characters'
+  }
+
+  return errors
+}
+
 export default withRouter(reduxForm({
     form: 'CommentForm',
-    enableReinitialize: true,
+    validate,
+    enableReinitialize: true
 })(CommentForm))
