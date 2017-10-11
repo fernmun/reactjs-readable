@@ -1,8 +1,7 @@
 import {
   VOTE_POST,
   DELETE_POST,
-  GET_ALL_POSTS,
-  SORT_POSTS
+  GET_ALL_POSTS
 } from '../const/actions'
 
 function findKey(state, id) {

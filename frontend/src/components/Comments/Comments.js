@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import Vote from '../Vote/Vote'
 import CommentForm from './CommentForm'
 import {
@@ -12,9 +11,6 @@ import {
   voteComment
 } from '../../actions'
 import {
-  FormGroup,
-  ControlLabel,
-  FormControl,
   Row,
   Col
 } from 'react-bootstrap'
@@ -36,8 +32,8 @@ class Comments extends Component {
           <Col xs={10}>
             <h4>{comment.author}</h4>
             <p>{comment.body}</p>
-            <a href="javascript:void(0)" onClick={() => this.props.setEditableComment(comment.id)}> Edit </a>
-            <a href="javascript:void(0)" onClick={() => this.props.deleteComment(comment.id)}> Delete </a>
+            <a onClick={() => this.props.setEditableComment(comment.id)}> Edit </a>
+            <a onClick={() => this.props.deleteComment(comment.id)}> Delete </a>
           </Col>
         </Row>
         <hr />

@@ -4,8 +4,7 @@ import {
   Button,
   FormGroup,
   ControlLabel,
-  FormControl,
-  HelpBlock
+  FormControl
 } from 'react-bootstrap'
 import { Field, reduxForm } from 'redux-form'
 
@@ -98,8 +97,6 @@ class PostForm extends Component {
 
 function validate(values) {
   const errors = {}
-
-  console.log(values)
 
   if (!values.title) {
     errors.title = 'It is required'

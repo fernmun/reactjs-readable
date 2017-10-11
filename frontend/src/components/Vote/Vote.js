@@ -10,9 +10,9 @@ const Vote = ({ id, handleVote, score }) => {
 
   return(
     <div className="voting-component">
-      <a href="javascript:void(0)" onClick={() => {handleClick(INCREASE)}}><AddIcon /></a>
+      <a onClick={() => {handleClick(INCREASE)}}><AddIcon /></a>
       <span>{score}</span>
-      <a href="javascript:void(0)" onClick={() => {handleClick(DECREASE)}}><MinusIcon /></a>
+      <a onClick={() => {handleClick(DECREASE)}}><MinusIcon /></a>
     </div>
   )
 }

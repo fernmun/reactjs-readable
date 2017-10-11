@@ -9,7 +9,6 @@ import {
   deletePost,
   votePost,
   sortPosts,
-  orderType,
   getAllCategories
 } from '../../actions'
 import {
@@ -53,7 +52,7 @@ class AllPosts extends Component {
               </small>
               <div className="pull-right">
                 <Link className="btn btn-info" to={`/${post.category}/${post.id}/edit`}> Edit </Link>
-                <a className="btn btn-danger" href="javascript:void(0)" onClick={() => this.props.deletePost(post.id)}> Delete </a>
+                <a className="btn btn-danger" onClick={() => this.props.deletePost(post.id)}> Delete </a>
               </div>
             </Col>
           </Row>

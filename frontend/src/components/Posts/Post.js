@@ -28,17 +28,17 @@ class Post extends Component {
       <div key={post.id} className="post">
         <Vote handleVote={this.props.votePost} id={post.id} score={post.voteScore} />
         <h1>{post.title}</h1>
-        <p>
-          <small>
-            Created by <b>{post.author}</b> <TimeAgo date={post.timestamp} /> -
-            <Link to={`/${post.category}`}> {post.category} </Link>
-          </small>
-          <div class="pull-right">
-            <Link to={`/${post.category}/${post.id}/edit`}>Edit</Link>
-            <a href="javascript:void(0)" onClick={() => this.handleDeletePost(post.id)}> Delete </a>
-          </div>
-        </p>
-        <p class="lead">{post.body}</p>
+        <small>
+          Created by <b>{post.author}</b> <TimeAgo date={post.timestamp} /> -
+          <Link to={`/${post.category}`}> {post.category} </Link>
+        </small>
+        <div className="pull-right">
+          <Link to={`/${post.category}/${post.id}/edit`}>Edit</Link>
+          <a onClick={() => this.handleDeletePost(post.id)}> Delete </a>
+        </div>
+        <hr />
+        <p className="lead">{post.body}</p>
+        <hr />
         <div id="comments">
           <Comments postId={post.id} />
         </div>
