@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import PostForm from './PostForm'
 import { getAllCategories, getPost, editPost } from '../../actions'
@@ -41,6 +42,11 @@ function mapDispatchToProps (dispatch) {
     editPost: (id, post) => {dispatch(editPost(id, post))},
     getPost: (id) => {dispatch(getPost(id))},
   }
+}
+
+EditPost.propTypes = {
+  categories: PropTypes.array,
+  post: PropTypes.object
 }
 
 export default connect(

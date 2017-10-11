@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Comments from '../Comments/Comments'
@@ -59,6 +60,10 @@ function mapDispatchToProps (dispatch) {
     deletePost: (id) => dispatch(deletePost(id)),
     votePost: (id, vote) => dispatch(votePost(id, vote))
   }
+}
+
+Post.propTypes = {
+  post: PropTypes.object
 }
 
 export default connect(

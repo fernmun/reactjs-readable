@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Vote from '../Vote/Vote'
 import CommentForm from './CommentForm'
@@ -96,6 +97,12 @@ function mapDispatchToProps (dispatch) {
     setEditableComment: (id) => dispatch(setEditableComment(id)),
     voteComment: (id, vote) => dispatch(voteComment(id, vote))
   }
+}
+
+Comments.propTypes = {
+  postId: PropTypes.string,
+  comments: PropTypes.array,
+  editableComment: PropTypes.string
 }
 
 export default connect(

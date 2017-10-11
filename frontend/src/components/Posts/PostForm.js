@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
 import {
   Button,
@@ -123,6 +124,12 @@ function validate(values) {
   }
 
   return errors
+}
+
+PostForm.propTypes = {
+  action: PropTypes.func,
+  categories: PropTypes.array,
+  edit: PropTypes.bool
 }
 
 export default withRouter(reduxForm({

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
+import PropTypes from 'prop-types'
 import {
   Button,
   FormGroup,
@@ -61,6 +62,12 @@ class CommentForm extends Component {
       </form>
     )
   }
+}
+
+CommentForm.propTypes = {
+  action: PropTypes.func,
+  postId: PropTypes.string,
+  edit: PropTypes.bool
 }
 
 export default withRouter(reduxForm({

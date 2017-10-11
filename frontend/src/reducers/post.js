@@ -6,7 +6,7 @@ import {
   EDIT_POST
 } from '../const/actions'
 
-function post (state = [], action) {
+function post (state = {}, action) {
   switch (action.type) {
     case ADD_POST:
       return action.payload

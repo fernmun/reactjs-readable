@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import CommentIcon from 'react-icons/lib/io/chatbox-working'
 import { Link } from 'react-router-dom'
@@ -128,6 +129,12 @@ function mapDispatchToProps (dispatch) {
     votePost: (id, vote) => dispatch(votePost(id, vote)),
     sortPosts: (type, posts) => dispatch(sortPosts(type, posts))
   }
+}
+
+AllPosts.propTypes = {
+  posts: PropTypes.array,
+  orderTypes: PropTypes.string,
+  categories: PropTypes.array
 }
 
 export default connect(
