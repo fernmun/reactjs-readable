@@ -21,8 +21,7 @@ class PostForm extends Component {
 
   getValidationState = () => {
     const length = this.state.value.length;
-    if (length > 10) return 'success';
-    else if (length > 5) return 'warning';
+    if (length > 4) return 'success';
     else if (length > 0) return 'error';
   }
 
@@ -32,7 +31,22 @@ class PostForm extends Component {
         <ControlLabel>{field.label}</ControlLabel>
         <FormControl type="text" placeholder={field.label} {...field.input} />
         <FormControl.Feedback />
-        <HelpBlock>Validation is based on string length.</HelpBlock>
+        <div className="error danger">
+          {field.meta.touched ? field.meta.error : ''}
+        </div>
+      </FormGroup>
+    )
+  }
+
+  buildTextareaField = field => {
+    return(
+      <FormGroup validationState={this.getValidationState()}>
+        <ControlLabel>{field.label}</ControlLabel>
+        <FormControl componentClass="textarea" placeholder={field.label} {...field.input} />
+        <FormControl.Feedback />
+        <div className="error danger">
+          {field.meta.touched ? field.meta.error : ''}
+        </div>
       </FormGroup>
     )
   }
@@ -75,14 +89,47 @@ class PostForm extends Component {
         <Field label="Title" name="title" component={this.buildInputField} onChange={this.handleChange} />
         <Field label="Author" name="author" component={this.buildInputField} onChange={this.handleChange} />
         <Field label="Category" name="category" component={this.buildDropdownField} options={this.props.categories} />
-        <Field label="Body" name="body" component={this.buildInputField} onChange={this.handleChange} />
+        <Field label="Body" name="body" component={this.buildTextareaField} onChange={this.handleChange} />
         <Button bsStyle="primary" type="submit" active>Submit</Button>
       </form>
     )
   }
 }
 
+function validate(values) {
+  const errors = {}
+
+  console.log(values)
+
+  if (!values.title) {
+    errors.title = 'It is required'
+  } else if (values.title.length < 5) {
+    errors.title = 'Min. 4 characters'
+  }
+
+  if (!values.author) {
+    errors.author = 'It is required'
+  } else if (values.author.length < 5) {
+    errors.author = 'Min. 4 characters'
+  }
+
+  if (!values.author) {
+    errors.author = 'It is required'
+  } else if (values.author.length < 2) {
+    errors.author = 'Min. 4 characters'
+  }
+
+  if (!values.body) {
+    errors.body = 'It is required'
+  } else if (values.body.length < 5) {
+    errors.body = 'Min. 4 characters'
+  }
+
+  return errors
+}
+
 export default withRouter(reduxForm({
     form: 'PostForm',
+    validate,
     enableReinitialize: true,
 })(PostForm))

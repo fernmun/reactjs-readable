@@ -21,8 +21,7 @@ class CommentForm extends Component {
 
   getValidationState = () => {
     const length = this.state.value.length;
-    if (length > 10) return 'success';
-    else if (length > 5) return 'warning';
+    if (length > 4) return 'success';
     else if (length > 0) return 'error';
   }
 
@@ -32,7 +31,7 @@ class CommentForm extends Component {
         <ControlLabel>{field.label}</ControlLabel>
         <FormControl type="text" placeholder={field.label} {...field.input} />
         <FormControl.Feedback />
-        <HelpBlock>Validation is based on string length.</HelpBlock>
+        <HelpBlock>Min. 4 characters</HelpBlock>
       </FormGroup>
     )
   }

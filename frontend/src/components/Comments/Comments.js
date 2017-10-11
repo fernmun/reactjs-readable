@@ -11,6 +11,13 @@ import {
   setEditableComment,
   voteComment
 } from '../../actions'
+import {
+  FormGroup,
+  ControlLabel,
+  FormControl,
+  Row,
+  Col
+} from 'react-bootstrap'
 import { sortList } from '../../utils'
 import { BY_SCORE } from '../../const/orderTypes'
 
@@ -22,11 +29,18 @@ class Comments extends Component {
   renderComment(comment) {
     return (
       <div key={comment.id}>
-        <Vote id={comment.id} score={comment.voteScore} handleVote={this.props.voteComment} />
-        <h4>{comment.author}</h4>
-        <p>{comment.body}</p>
-        <a href="javascript:void(0)" onClick={() => this.props.setEditableComment(comment.id)}> Edit </a>
-        <a href="javascript:void(0)" onClick={() => this.props.deleteComment(comment.id)}> Delete </a>
+        <Row>
+          <Col xs={2}>
+            <Vote id={comment.id} score={comment.voteScore} handleVote={this.props.voteComment} />
+          </Col>
+          <Col xs={10}>
+            <h4>{comment.author}</h4>
+            <p>{comment.body}</p>
+            <a href="javascript:void(0)" onClick={() => this.props.setEditableComment(comment.id)}> Edit </a>
+            <a href="javascript:void(0)" onClick={() => this.props.deleteComment(comment.id)}> Delete </a>
+          </Col>
+        </Row>
+        <hr />
       </div>
     )
   }
@@ -37,10 +51,12 @@ class Comments extends Component {
 
     return(
       <div>
-        <div>
+        <Row>
           <h4>Add Comment</h4>
-          <CommentForm action={this.props.addComment} postId={this.props.postId} />
-        </div>
+          <Col xs={6}>
+            <CommentForm action={this.props.addComment} postId={this.props.postId} />
+          </Col>
+        </Row>
         <div>
         <h3>Comments</h3>
           {comments.map((comment) => {
@@ -55,6 +71,7 @@ class Comments extends Component {
                     form={comment.id}
                     initialValues={comment}
                     />
+                  <hr />
                   </div>
                 )
               }

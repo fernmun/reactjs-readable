@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Comments from '../Comments/Comments'
+import TimeAgo from 'react-timeago'
 import { getPost, deletePost, votePost } from '../../actions'
 import Vote from '../Vote/Vote'
 
@@ -18,16 +19,27 @@ class Post extends Component {
   render() {
     const { post } = this.props
 
+    if (post.error)
+      return (
+        `There is no post to be shown! :(`
+      )
+
     return (
       <div key={post.id} className="post">
         <Vote handleVote={this.props.votePost} id={post.id} score={post.voteScore} />
         <h1>{post.title}</h1>
-        <h6><Link to={`/${post.category}/${post.id}/edit`}>Edit</Link></h6>
-        <h6><a href="javascript:void(0)" onClick={() => this.handleDeletePost(post.id)}> Delete </a></h6>
-        <h6><Link to={`/${post.category}`}>{post.category}</Link></h6>
-        <p>{post.body}</p>
-        <span>{post.id}</span>
-        <div>
+        <p>
+          <small>
+            Created by <b>{post.author}</b> <TimeAgo date={post.timestamp} /> -
+            <Link to={`/${post.category}`}> {post.category} </Link>
+          </small>
+          <div class="pull-right">
+            <Link to={`/${post.category}/${post.id}/edit`}>Edit</Link>
+            <a href="javascript:void(0)" onClick={() => this.handleDeletePost(post.id)}> Delete </a>
+          </div>
+        </p>
+        <p class="lead">{post.body}</p>
+        <div id="comments">
           <Comments postId={post.id} />
         </div>
       </div>

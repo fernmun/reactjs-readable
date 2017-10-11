@@ -1,5 +1,7 @@
 import React from 'react'
 import { INCREASE, DECREASE } from '../../const/votes'
+import AddIcon from 'react-icons/lib/io/arrow-up-b'
+import MinusIcon from 'react-icons/lib/io/arrow-down-b'
 
 const Vote = ({ id, handleVote, score }) => {
   const handleClick = (vote) => {
@@ -7,10 +9,10 @@ const Vote = ({ id, handleVote, score }) => {
   }
 
   return(
-    <div>
-      <a href="javascript:void(0)" onClick={() => {handleClick(INCREASE)}}>+</a>
+    <div className="voting-component">
+      <a href="javascript:void(0)" onClick={() => {handleClick(INCREASE)}}><AddIcon /></a>
       <span>{score}</span>
-      <a href="javascript:void(0)" onClick={() => {handleClick(DECREASE)}}>-</a>
+      <a href="javascript:void(0)" onClick={() => {handleClick(DECREASE)}}><MinusIcon /></a>
     </div>
   )
 }
