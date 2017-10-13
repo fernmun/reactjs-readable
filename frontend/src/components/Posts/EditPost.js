@@ -21,18 +21,10 @@ class EditPost extends Component {
   }
 }
 
-function mapStateToProps (state) {
-  // Add no-valid default category
-  const categories = [
-    {
-      name: 'Select a category'
-    },
-    ...state.categories
-  ]
-
+function mapStateToProps ({ categories, post }) {
   return {
     categories: categories,
-    post: state.post
+    post: post
   }
 }
 

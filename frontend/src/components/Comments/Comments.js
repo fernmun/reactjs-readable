@@ -3,14 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Vote from '../Vote/Vote'
 import CommentForm from './CommentForm'
-import {
-  addComment,
-  editComment,
-  deleteComment,
-  getAllComments,
-  setEditableComment,
-  voteComment
-} from '../../actions'
+import * as actions from '../../actions'
 import {
   Row,
   Col
@@ -86,21 +79,10 @@ class Comments extends Component {
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps ({ comments }) {
   return {
-    comments: state.comments.comments,
-    editableComment: state.comments.editableComment
-  }
-}
-
-function mapDispatchToProps (dispatch) {
-  return {
-    addComment: (comment) => dispatch(addComment(comment)),
-    editComment: (id, comment) => dispatch(editComment(id, comment)),
-    deleteComment: (id) => dispatch(deleteComment(id)),
-    getAllComments: (id) => dispatch(getAllComments(id)),
-    setEditableComment: (id) => dispatch(setEditableComment(id)),
-    voteComment: (id, vote) => dispatch(voteComment(id, vote))
+    comments: comments.comments,
+    editableComment: comments.editableComment
   }
 }
 
@@ -112,5 +94,5 @@ Comments.propTypes = {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  actions
 )(Comments)

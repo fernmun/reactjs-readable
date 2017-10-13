@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Comments from '../Comments/Comments'
 import TimeAgo from 'react-timeago'
-import { getPost, deletePost, votePost } from '../../actions'
+import * as actions from '../../actions'
 import Vote from '../Vote/Vote'
 
 class Post extends Component {
@@ -48,17 +48,9 @@ class Post extends Component {
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps ({ post }) {
   return {
-    post: state.post
-  }
-}
-
-function mapDispatchToProps (dispatch) {
-  return {
-    getPost: (id) => dispatch(getPost(id)),
-    deletePost: (id) => dispatch(deletePost(id)),
-    votePost: (id, vote) => dispatch(votePost(id, vote))
+    post: post
   }
 }
 
@@ -68,5 +60,5 @@ Post.propTypes = {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  actions
 )(Post)

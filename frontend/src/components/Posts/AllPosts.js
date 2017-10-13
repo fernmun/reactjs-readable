@@ -5,13 +5,7 @@ import CommentIcon from 'react-icons/lib/io/chatbox-working'
 import { Link } from 'react-router-dom'
 import TimeAgo from 'react-timeago'
 import Vote from '../Vote/Vote'
-import {
-  getAllPosts,
-  deletePost,
-  votePost,
-  sortPosts,
-  getAllCategories
-} from '../../actions'
+import * as actions from '../../actions'
 import {
   FormGroup,
   ControlLabel,
@@ -25,11 +19,33 @@ import { sortList } from '../../utils'
 
 class AllPosts extends Component {
   componentDidMount() {
-    this.props.getCategories()
+    this.props.getAllCategories()
   }
 
   componentWillReceiveProps() {
     this.props.getAllPosts(this.props.match.params.category)
+  }
+
+  renderCategories(categories) {
+    return (
+      <Col xs={12} md={4}>
+        <h2 className="text-center">Categories</h2>
+        <table className="table table-striped">
+          <tbody>
+          {categories.map(category => {
+            return (
+              <tr key={category.path}><td>
+                <Link
+                  className="text-center text-uppercase"
+                  to={`/${category.path}`}>{category.name}
+                </Link>
+              </td></tr>
+            )
+          })}
+          </tbody>
+        </table>
+      </Col>
+    )
   }
 
   renderPost(post) {
@@ -69,7 +85,12 @@ class AllPosts extends Component {
 
     if (posts.length === 0)
       return (
-        `There are no posts to be shown! :(`
+        <Row>
+          <Col xs={12} md={8}>
+          There are no posts to be shown! :(
+          </Col>
+          {this.renderCategories(this.props.categories)}
+        </Row>
       )
 
     return(
@@ -94,43 +115,17 @@ class AllPosts extends Component {
           </Row>
           {posts.map(post => this.renderPost(post))}
         </Col>
-        <Col xs={12} md={4}>
-          <h2 className="text-center">Categories</h2>
-          <table className="table table-striped">
-            <tbody>
-            {this.props.categories.map(category => {
-              return (
-                <tr key={category.path}><td>
-                  <Link
-                    className="text-center text-uppercase"
-                    to={`/${category.path}`}>{category.name}
-                  </Link>
-                </td></tr>
-              )
-            })}
-            </tbody>
-          </table>
-        </Col>
+        {this.renderCategories(this.props.categories)}
       </Row>
     )
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps ({ posts, orderType, categories }) {
   return {
-    posts: state.posts,
-    orderType: state.orderType,
-    categories: state.categories
-  }
-}
-
-function mapDispatchToProps (dispatch) {
-  return {
-    getAllPosts: (category) => dispatch(getAllPosts(category)),
-    deletePost: (id) => dispatch(deletePost(id)),
-    getCategories: () => dispatch(getAllCategories()),
-    votePost: (id, vote) => dispatch(votePost(id, vote)),
-    sortPosts: (type, posts) => dispatch(sortPosts(type, posts))
+    posts: posts,
+    orderType: orderType,
+    categories: categories
   }
 }
 
@@ -142,5 +137,5 @@ AllPosts.propTypes = {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  actions
 )(AllPosts)
