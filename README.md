@@ -63,3 +63,7 @@ After finish run `npm start` to get this up.
 
 - If reactjs-readable does not connect to data server, please check into `frontend/utils/ReadableAPI.js`
   file if the port number match where the server data is running, if not, change it and restart the app.
+
+## License
+
+MIT
