@@ -20,7 +20,7 @@ class Post extends Component {
   render() {
     const { post } = this.props
 
-    if (post.error)
+    if (Object.keys(post).length === 0 || post.error)
       return (
         `There is no post to be shown! :(`
       )
